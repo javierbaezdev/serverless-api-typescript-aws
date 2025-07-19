@@ -1,0 +1,49 @@
+
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-1.0.x", "rhel-openssl-1.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+//enums
+enum RoleNameEnum {
+  ADMIN
+  CLIENT_USER
+}
+//end enums
+
+
+model Roles {
+  id        String      @id @default(uuid())
+  name      RoleNameEnum @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  isActive  Boolean  @default(true)
+  isDeleted Boolean  @default(false)
+
+  // Relación: un rol pertenece a un usuario
+  users     Users[]
+}
+
+model Users {
+  id        String      @id @default(uuid())
+  name      String
+  lastName  String
+  email     String   @unique
+  lastEmail String?
+  password  String
+  roleid    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  isVerified Boolean  @default(false)
+  isActive  Boolean  @default(true)
+  isDeleted Boolean  @default(false)
+
+  // Relación: un usuario pertenece a un rol
+  roles     Roles    @relation(fields: [roleid], references: [id])
+}

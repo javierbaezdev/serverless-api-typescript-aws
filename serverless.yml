@@ -1,0 +1,41 @@
+service: sls-nodejs-ts
+frameworkVersion: '3'
+useDotenv: true
+variablesResolutionMode: 20210326
+custom:
+  stage: ${opt:stage, env:ENV, 'dev'} #ejemplo: sls deploy --stage=prod
+  esbuild:
+    bundle: true
+    minify: false
+    sourcemap: true
+    target: 'node18'
+    concurrency: 10
+
+    # 1) NO excluir @prisma/client del bundle
+    external: []
+
+    # 2) Genera primero el cliente Prisma (con binarios Linux) antes de empaquetar
+    packager: 'npm'
+    packagerOptions:
+      scripts:
+        - npx prisma generate
+  cors: ${file(./src/config/cors.yml):cors.${self:custom.stage}}
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: us-east-1
+  profile: '${param:prof,null}'
+  stage: ${self:custom.stage}
+  environment: ${file(./src/config/environment.yml):env.${self:custom.stage}}
+
+functions:
+  - ${file(src/modules/hello/serverless.yml)}
+plugins:
+  - serverless-esbuild
+  - serverless-offline
+
+# Esto hace que todo .prisma/ se incluya en el despliegue
+package:
+  patterns:
+    - 'node_modules/.prisma/**'
+    - 'node_modules/@prisma/client/**'

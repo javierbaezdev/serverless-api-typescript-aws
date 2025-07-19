@@ -1,0 +1,53 @@
+/* {
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es6",
+    "lib": ["es6", "dom"],
+    "moduleResolution": "node",
+    "rootDir": "./",
+    "sourceMap": true,
+    "allowJs": true,
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
+    "noImplicitReturns": true,
+    "preserveConstEnums": true,
+    "forceConsistentCasingInFileNames": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
+    
+  },
+  "exclude": ["node_modules", "build", "webpack"],
+  "types": ["typePatches"]
+} */
+
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es6",
+    "lib": ["es6", "dom"],
+    "moduleResolution": "node",
+    "rootDir": "./",
+    "outDir": "./dist",
+    "sourceMap": true,
+    "allowJs": true,
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
+    "noImplicitReturns": true,
+    "preserveConstEnums": true,
+    "forceConsistentCasingInFileNames": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": ".", // base desde donde se resuelven los alias
+    "paths": {
+      "@/*": ["src/*"] // alias @/ para apuntar a la carpeta src
+    }
+  },
+  "exclude": ["node_modules", "build", "webpack"],
+  "types": ["typePatches"]
+}

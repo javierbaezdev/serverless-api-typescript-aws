@@ -1,0 +1,20 @@
+login:
+  handler: src/modules/auth/handlers/login.handler
+  events:
+    - http:
+        path: auth/login
+        method: post
+
+forgotPassword:
+  handler: src/modules/auth/handlers/forgot.handler
+  events:
+    - http:
+        path: auth/forgot-password
+        method: post
+
+resetPassword:
+  handler: src/modules/auth/handlers/reset.handler
+  events:
+    - http:
+        path: auth/recover-password
+        method: post

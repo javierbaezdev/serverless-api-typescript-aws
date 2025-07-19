@@ -1,0 +1,62 @@
+{
+  "name": "sls-dev-local",
+  "type": "commonjs",
+  "scripts": {
+    "release": "standard-version",
+    "dev": "nodemon",
+    "seed": "npx ts-node prisma/seed.ts",
+    "lint": "eslint .",
+    "deploy": "serverless deploy --param='prof=serverless-user' --stage=prod --force"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.31.0",
+    "@types/aws-lambda": "^8.10.119",
+    "@types/bcrypt": "^5.0.2",
+    "@types/jest": "^29.5.4",
+    "@types/jsonwebtoken": "^9.0.10",
+    "esbuild": "^0.20.2",
+    "eslint": "^9.31.0",
+    "globals": "^16.3.0",
+    "jest": "^29.6.4",
+    "json-schema-to-ts": "^2.9.2",
+    "nodemon": "^3.1.10",
+    "prisma": "^5.22.0",
+    "serverless": "^3.38.0",
+    "serverless-esbuild": "^1.52.1",
+    "serverless-export-env": "^2.2.0",
+    "serverless-offline": "^12.0.4",
+    "ts-jest": "^29.1.1",
+    "ts-loader": "^9.4.4",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.37.0"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.22.0",
+    "bcryptjs": "^3.0.2",
+    "dotenv": "^17.0.0",
+    "inversify": "^6.0.1",
+    "inversify-binding-decorators": "^4.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "reflect-metadata": "^0.2.2",
+    "zod": "^3.25.67"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "ts"
+    ],
+    "rootDir": "src",
+    "testRegex": ".*\\.spec\\.ts$",
+    "transform": {
+      "^.+\\.(t|j)s$": "ts-jest"
+    },
+    "collectCoverageFrom": [
+      "**/*.(t|j)s"
+    ],
+    "coverageDirectory": "../coverage",
+    "testEnvironment": "node"
+  }
+}

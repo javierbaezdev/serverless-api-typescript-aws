@@ -1,0 +1,98 @@
+getUser:
+  handler: src/modules/users/handlers/getUser.handler
+  events:
+    - http:
+        path: users/get-one/{id}
+        method: get
+
+getAllUser:
+  handler: src/modules/users/handlers/getAllUser.handler
+  events:
+    - http:
+        path: users/get-all
+        method: get
+
+deleteUser:
+  handler: src/modules/users/handlers/deleteUser.handler
+  events:
+    - http:
+        path: users/delete-user/{id}
+        method: delete
+
+toggleActiveUser:
+  handler: src/modules/users/handlers/toggleActiveUser.handler
+  events:
+    - http:
+        path: users/toggle-active-user/{id}
+        method: put
+
+# ADMIN
+createAdminUser:
+  handler: src/modules/users/handlers/userAdmin/createAdminUser.handler
+  events:
+    - http:
+        path: admin-users/create-user
+        method: post
+
+updateAdminUser:
+  handler: src/modules/users/handlers/userAdmin/updateAdminUser.handler
+  events:
+    - http:
+        path: admin-users/update-user
+        method: patch
+
+updateAdminProfile:
+  handler: src/modules/users/handlers/userAdmin/updateAdminProfile.handler
+  events:
+    - http:
+        path: admin-users/update-profile
+        method: patch
+# END ADMIN
+
+# DISTRIBUTORS
+createDistributorUser:
+  handler: src/modules/users/handlers/userDistributor/createUser.handler
+  events:
+    - http:
+        path: distributors-users/create-user
+        method: post
+
+updateDistributorUser:
+  handler: src/modules/users/handlers/userDistributor/updateUser.handler
+  events:
+    - http:
+        path: distributors-users/update-user
+        method: patch
+# END DISTRIBUTORS
+
+# PHARMACY AND SUCURSAL
+createPharmacyUser:
+  handler: src/modules/users/handlers/userPharmacy/createUser.handler
+  events:
+    - http:
+        path: pharmacy-users/create-user
+        method: post
+
+updatePharmacyUser:
+  handler: src/modules/users/handlers/userPharmacy/updateUser.handler
+  events:
+    - http:
+        path: pharmacy-users/update-user
+        method: patch
+# END PHARMACY AND SUCURSAL
+
+# SELLER
+createSellerUser:
+  handler: src/modules/users/handlers/userSeller/createUser.handler
+  events:
+    - http:
+        path: seller-users/create-user
+        method: post
+
+updateSellerUser:
+  handler: src/modules/users/handlers/userSeller/updateUser.handler
+  events:
+    - http:
+        path: seller-users/update-user
+        method: patch
+# END SELLER

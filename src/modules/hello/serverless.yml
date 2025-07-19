@@ -1,0 +1,7 @@
+hello:
+  handler: src/modules/hello/handlers/index.handler
+  events:
+    - http:
+        path: say/hello
+        method: get
+        cors: ${self:custom.cors}

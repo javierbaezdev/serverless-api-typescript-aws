@@ -1,0 +1,22 @@
+cors:
+  dev:
+    origin: ${env:ORIGIN_DEV}
+    headers:
+      - Content-Type
+      - Authorization
+    allowCredentials: true
+
+  qa:
+    origin: ${env:ORIGIN_QA}
+    headers:
+      - Content-Type
+      - Authorization
+      - X-Custom-Header
+    allowCredentials: false
+
+  prod:
+    origin: ${env:ORIGIN_PROD}
+    headers:
+      - Content-Type
+      - Authorization
+    allowCredentials: true
