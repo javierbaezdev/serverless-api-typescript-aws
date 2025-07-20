@@ -6,7 +6,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mongodb"
   url      = env("DATABASE_URL")
 }
 
@@ -19,7 +19,7 @@ enum RoleNameEnum {
 
 
 model Roles {
-  id        String      @id @default(uuid())
+  id String @id @default(auto()) @map("_id") @db.ObjectId
   name      RoleNameEnum @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -31,13 +31,14 @@ model Roles {
 }
 
 model Users {
-  id        String      @id @default(uuid())
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  nickName String? @unique
   name      String
   lastName  String
   email     String   @unique
   lastEmail String?
   password  String
-  roleid    String
+  roleId    String @db.ObjectId
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   isVerified Boolean  @default(false)
@@ -45,5 +46,5 @@ model Users {
   isDeleted Boolean  @default(false)
 
   // Relación: un usuario pertenece a un rol
-  roles     Roles    @relation(fields: [roleid], references: [id])
+  roles  Roles @relation(fields: [roleId], references: [id])
 }
