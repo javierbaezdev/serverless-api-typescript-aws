@@ -20,6 +20,8 @@ custom:
       scripts:
         - npx prisma generate
   cors: ${file(./src/config/cors.yml):cors.${self:custom.stage}}
+  assets:
+    - src/templates/**
 provider:
   name: aws
   runtime: nodejs18.x
@@ -39,3 +41,5 @@ package:
   patterns:
     - 'node_modules/.prisma/**'
     - 'node_modules/@prisma/client/**'
+  include:
+    - src/templates/**

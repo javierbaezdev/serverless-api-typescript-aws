@@ -3,7 +3,7 @@
   "type": "commonjs",
   "scripts": {
     "release": "standard-version",
-    "dev": "nodemon",
+    "dev": "cross-env AWS_PROFILE=serverless-user AWS_SDK_LOAD_CONFIG=1 nodemon",
     "seed": "npx ts-node prisma/seed.ts",
     "lint": "eslint .",
     "deploy": "serverless deploy --param='prof=serverless-user' --stage=prod --force",
@@ -17,6 +17,7 @@
     "@types/bcrypt": "^5.0.2",
     "@types/jest": "^29.5.4",
     "@types/jsonwebtoken": "^9.0.10",
+    "cross-env": "^7.0.3",
     "esbuild": "^0.20.2",
     "eslint": "^9.31.0",
     "globals": "^16.3.0",

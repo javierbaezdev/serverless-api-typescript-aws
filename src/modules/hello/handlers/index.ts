@@ -1,20 +1,26 @@
 import { validateOrigin } from '@/middleware';
 
+import { formatJSONResponse } from '@/libs/apiGateway.lib';
+import { sendEmailService } from '../services';
+
 export const baseHandler = async () => {
   try {
-    return {
-      statusCode: 200,
-      body: JSON.stringify({
-        message: 'Hello World',
-      }),
-    };
-  } catch (error) {
-    return {
-      statusCode: 500,
-      body: JSON.stringify({
-        message: error.message,
-      }),
-    };
+    const result = await sendEmailService();
+    return formatJSONResponse({
+      statusCode: 'OK',
+      response: {
+        data: result,
+      },
+    });
+  } catch (err) {
+    return formatJSONResponse({
+      statusCode: 'INTERNAL_SERVER_ERROR',
+      response: {
+        errorName: err.name,
+        errorMessage: err.message,
+        internalErrorCode: 'TEST-SEND-EMAIL',
+      },
+    });
   }
 };
 
