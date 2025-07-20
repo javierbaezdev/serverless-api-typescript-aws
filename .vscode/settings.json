@@ -1,0 +1,4 @@
+{
+  // Único ajuste que la extensión de Prisma necesita
+  "prisma.schemaPath": "prisma/schema.prisma"
+}

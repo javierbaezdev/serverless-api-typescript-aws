@@ -6,7 +6,10 @@
     "dev": "nodemon",
     "seed": "npx ts-node prisma/seed.ts",
     "lint": "eslint .",
-    "deploy": "serverless deploy --param='prof=serverless-user' --stage=prod --force"
+    "deploy": "serverless deploy --param='prof=serverless-user' --stage=prod --force",
+    "build:schema": "ts-node build-schema.ts",
+    "prisma:generate": "npm run build:schema && prisma generate",
+    "prisma:push": "npm run build:schema && prisma db push"
   },
   "devDependencies": {
     "@eslint/js": "^9.31.0",
