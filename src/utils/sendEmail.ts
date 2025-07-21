@@ -2,7 +2,7 @@ import AWS from 'aws-sdk';
 import fs from 'fs';
 import path from 'path';
 
-const ses = new AWS.SES({ region: 'us-east-1' });
+const ses = new AWS.SES({ region: process.env.AWS_REGION || 'us-east-1' });
 
 export interface SendEmailOptions {
   subject: string;
