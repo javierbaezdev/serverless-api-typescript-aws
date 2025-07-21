@@ -1,15 +1,13 @@
-import AWS from 'aws-sdk';
+import { SESClient, SendEmailCommand } from '@aws-sdk/client-ses';
 import fs from 'fs';
 import path from 'path';
-
-const ses = new AWS.SES({ region: process.env.AWS_REGION || 'us-east-1' });
 
 export interface SendEmailOptions {
   subject: string;
   templateName: string;
   recipients: string[];
   data: Record<string, string>;
-  source?: string; // opcional
+  source?: string;
 }
 
 /**
@@ -24,7 +22,11 @@ export const sendEmail = async ({
 }: SendEmailOptions): Promise<string> => {
   const html = loadTemplate(templateName, data);
 
-  const params: AWS.SES.SendEmailRequest = {
+  const sesClient = new SESClient({
+    region: process.env.AMAZON_REGION || 'us-east-1',
+  });
+
+  const command = new SendEmailCommand({
     Source: source,
     Destination: {
       ToAddresses: recipients,
@@ -35,13 +37,14 @@ export const sendEmail = async ({
         Html: { Data: html },
       },
     },
-  };
+  });
 
   try {
-    await ses.sendEmail(params).promise();
-    return 'Correo enviado correctamente';
+    const response = await sesClient.send(command);
+    console.log('SES response:', JSON.stringify(response, null, 2));
+    return 'Correo enviado correctamente (SES v3)';
   } catch (err) {
-    console.error('Error enviando correo:', err);
+    console.error('SES ERROR:', JSON.stringify(err, null, 2));
     throw new Error('Error al enviar el correo');
   }
 };
@@ -59,6 +62,7 @@ const loadTemplate = (
     'templates',
     templateFile
   );
+
   if (!fs.existsSync(templatePath)) {
     throw new Error(`No se encontró la plantilla: ${templatePath}`);
   }

@@ -12,7 +12,7 @@ export const sendEmailService = async () => {
       },
     });
   } catch (err) {
-    console.error('Error al enviar correo:', err);
+    console.error('Error enviando correo SES:', JSON.stringify(err, null, 2));
     throw new Error('Error al enviar el correo');
   }
 };
