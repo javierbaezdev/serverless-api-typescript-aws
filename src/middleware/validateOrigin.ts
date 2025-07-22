@@ -15,7 +15,7 @@ type LambdaHandler = (
  */
 export const validateOrigin = (handler: LambdaHandler): LambdaHandler => {
   return async (event, context) => {
-    const requestOrigin = event.headers.origin || '';
+    const requestOrigin = event.headers?.origin || '';
     const env = (process.env.ENV || 'dev').toUpperCase();
     const dynamicKey = `ORIGIN_${env}`;
 
@@ -29,7 +29,7 @@ export const validateOrigin = (handler: LambdaHandler): LambdaHandler => {
     const isAllowed = isWildcard || allowedOrigins.includes(requestOrigin);
 
     if (!isAllowed) {
-      const response: APIGatewayProxyResult = {
+      return {
         statusCode: 403,
         headers: {
           'Content-Type': 'application/json',
@@ -39,8 +39,6 @@ export const validateOrigin = (handler: LambdaHandler): LambdaHandler => {
           message: `Forbidden: Origin ${requestOrigin} not allowed`,
         }),
       };
-
-      return response;
     }
 
     const response = await handler(event, context);

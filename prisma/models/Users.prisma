@@ -1,0 +1,17 @@
+model Users {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  nickName   String?  @unique
+  name       String
+  lastName   String
+  email      String   @unique
+  lastEmail  String?
+  password   String
+  roleId     String   @db.ObjectId
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  isVerified Boolean  @default(false)
+  isActive   Boolean  @default(true)
+  isDeleted  Boolean  @default(false)
+
+  roles      Roles    @relation(fields: [roleId], references: [id])
+}

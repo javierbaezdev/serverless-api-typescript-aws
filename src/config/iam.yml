@@ -1,0 +1,30 @@
+iam:
+  dev:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - ses:SendEmail
+            - ses:SendRawEmail
+          Resource: '*' # FULL ACCESS solo para dev
+
+  qa:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - ses:SendEmail
+            - ses:SendRawEmail
+          Resource:
+            - arn:aws:ses:us-east-1:624497742425:identity/javierbaez.dev@gmail.com
+            - arn:aws:ses:us-east-1:624497742425:identity/javierbaeztattoos@gmail.com
+
+  prod:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - ses:SendEmail
+            - ses:SendRawEmail
+          Resource:
+            - arn:aws:ses:us-east-1:624497742425:identity:no-reply@javierbaeztattoo.com

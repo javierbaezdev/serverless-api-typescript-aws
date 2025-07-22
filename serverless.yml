@@ -20,13 +20,17 @@ custom:
       scripts:
         - npx prisma generate
   cors: ${file(./src/config/cors.yml):cors.${self:custom.stage}}
+  assets:
+    - src/templates/**
+  includeModules: true
 provider:
   name: aws
-  runtime: nodejs18.x
+  runtime: ${file(./src/config/runtime.yml):runtime.${self:custom.stage}}
   region: us-east-1
   profile: '${param:prof,null}'
   stage: ${self:custom.stage}
   environment: ${file(./src/config/environment.yml):env.${self:custom.stage}}
+  iam: ${file(./src/config/iam.yml):iam.${self:custom.stage}}
 
 functions:
   - ${file(src/modules/hello/serverless.yml)}
@@ -39,3 +43,5 @@ package:
   patterns:
     - 'node_modules/.prisma/**'
     - 'node_modules/@prisma/client/**'
+  include:
+    - src/templates/**

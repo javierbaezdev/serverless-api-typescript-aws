@@ -1,0 +1,4 @@
+enum RoleNameEnum {
+  ADMIN
+  CLIENT_USER
+}
